@@ -37,9 +37,9 @@ class DistanceMatrixTest():
         # print(cal_cities)
 
         attractive_centers = [
-			"San Francisco, USA",
-			"Berkeley, USA",
-			"Sacramento, USA"
+			"San Francisco, USA"
+			# "Berkeley, USA",
+			# "Sacramento, USA"
 			# "Napa",
 			# "Sonoma",
 			# "San Mateo",
@@ -54,8 +54,12 @@ class DistanceMatrixTest():
             body='{"status":"OK","rows":[]}',
             status=200,
             content_type="application/json",
+            stream=True
         )
 
+        pp = pprint.PrettyPrinter(indent=4)
+
+        pp.pprint(responses)
         # csv_file_path='/Users/huntervoid/programming/Ranking cities in NorCal/cal_cities.csv'
         # cal_cities = []
         # state=" CA, USA"
@@ -64,18 +68,29 @@ class DistanceMatrixTest():
     	#     for row in csvreader:
     	# 	    cal_cities.append(row[1])
 
-        pp = pprint.PrettyPrinter(indent=4)
+        
 
-        pp.pprint(self.cal_cities)
+        # pp.pprint(self.cal_cities)
         origins = self.cal_cities
-        pp.pprint(self.attractive_centers)
+        # pp.pprint(self.attractive_centers)
         destinations = self.attractive_centers
         # pp.pprint(destinations)
 
-        matrix = self.client.distance_matrix(self.cal_cities[1:10], self.attractive_centers)
+        matrix = self.client.distance_matrix(self.cal_cities[1:20], self.attractive_centers)
 
+        responses.add(
+            responses.GET,
+            responses.calls[0].request.url,
+            # body='{"status":"OK","rows":[]}',
+            # status=200,
+            content_type="application/json",
+            stream=True
+        )
+
+
+        # pp.pprint(responses.rows[0])
         pp.pprint(matrix)
-        pp.pprint(responses.calls[0].request.url)
+        pp.pprint(responses.calls[0])
 
         # self.assertEqual(1, len(responses.calls))
         # self.assertURLEqual(

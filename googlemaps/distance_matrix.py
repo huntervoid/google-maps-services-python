@@ -136,4 +136,5 @@ def distance_matrix(client, origins, destinations,
     if region:
         params["region"] = region
 
+    params["stream"] = True
     return client._request("/maps/api/distancematrix/json", params)
